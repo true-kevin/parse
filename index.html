@@ -21,7 +21,7 @@
             var note = document.getElementById("note1");
             var str = note.value;
             str = str.replace(/\n$/g, "").replace(/\n/g, "','");
-            res = "('"+str+"');";
+            res = "select userid, name, mobile from users where userid in ('"+str+"');";
             note.value = res;
         }
         function parse_fnc() {

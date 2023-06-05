@@ -16,6 +16,11 @@
     <textarea id="note2" style="width:100%;height:250px;"></textarea>
     <button onclick="parse_fnc()">변환</button>
     <button onclick="str_copy(document.getElementById('note2'))">복사</button>
+    <br /><br />
+    배포 양식 파싱
+    <textarea id="note3" style="width:100%;height:250px;"></textarea>
+    <button onclick="dp_fnc()">변환</button>
+    <button onclick="str_copy(document.getElementById('note3'))">복사</button>
     <script>
         function query_fnc() {
             var note = document.getElementById("note1");
@@ -29,6 +34,23 @@
             var str = note.value;
             var res = str.replace(/ /g, "").replace(/^\||\|$/g, "").replace(/\n\|/g, "\n").replace(/\|\n/g, "\n").replace(/\|/g, "\t");
             note.value = res;
+        }
+        function dp_fnc() {
+            var note = document.getElementById("note3");
+            var str = note.value;
+            var res = str.replace(/ /g, "").replace(/\n{1,}/g, "\n").replace(/\n$/g, "").replace(/\/dev\/trunk/g, "");
+            var arr = res.split("\n");
+            console.log(arr);
+            var rst = '';
+            for(i in arr){
+                if(i != 0) rst += "\n";
+                each_arr = arr[i].split("\/");
+                var cud = '';
+                if(each_arr[0] == 'M') cud = 'U';
+                if(each_arr[0] == 'A') cud = 'C';
+                rst += each_arr[each_arr.length-1]+"\t\t"+each_arr.slice(1,each_arr.length-1).join("\/")+"\t"+cud+"\t";
+            }
+            note.value = rst;
         }
         function str_copy(note) {
             note.select();
